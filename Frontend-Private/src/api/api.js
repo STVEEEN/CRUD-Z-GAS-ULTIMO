@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:4000/api"; // Ajusta según tu configuración
+const BASE_URL = "http://localhost:4000/api"; 
 
 export const fetchProducts = async () => {
   const response = await fetch(`${BASE_URL}/products`);

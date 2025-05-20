@@ -1,91 +1,118 @@
-import { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import { fetchProducts, createProduct, updateProduct, deleteProduct } from "../../api/api";
-import "./MainScreen.css";
+import React, { useState } from 'react';
+import './MainScreen.css';
 
-const MainScreen = () => {
+const TambosForm = () => {
   const [products, setProducts] = useState([]);
-  const [formData, setFormData] = useState({ id: "", name: "", description: "", price: "", stock: "" });
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    stock: '',
+    description: ''
+  });
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const data = await fetchProducts();
-      setProducts(data);
-    };
-    loadProducts();
-  }, []);
-
-  const handleSelect = (product) => {
-    setFormData({ id: product._id, name: product.name, description: product.description, price: product.price, stock: product.stock });
-    setSelectedProduct(product._id);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (action) => {
-    if (action === "POST") await createProduct(formData);
-    if (action === "PUT") await updateProduct(formData.id, formData);
-    if (action === "DELETE") await deleteProduct(formData.id);
+  const handleSubmit = async (method) => {
+    const url = 'http://tu-backend.com/api/tambos';
+    const options = {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: method !== 'GET' ? JSON.stringify(formData) : undefined
+    };
 
-    const updatedData = await fetchProducts();
-    setProducts(updatedData);
-    setSelectedProduct(null);
-    setFormData({ id: "", name: "", description: "", price: "", stock: "" });
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      if (method === 'GET') setProducts(data);
+      console.log('Success:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
-    <div className="main-container">
-      <Sidebar />
-      <main className="content">
-        <h1 className="title">ALL THE TAMBOS BRO</h1>
-
-        <div className="form-container">
-          <label>Name</label>
-          <input type="text" name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Enter the name of the tambo" />
-
-          <label>Price</label>
-          <input type="number" name="price" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} placeholder="Enter the price of the tambo" />
-
-          <label>Stock</label>
-          <input type="number" name="stock" value={formData.stock} onChange={(e) => setFormData({ ...formData, stock: e.target.value })} placeholder="Enter the Unit available of the tambo" />
-
-          <label>Description</label>
-          <textarea name="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Add a product description"></textarea>
-
-          <div className="button-container">
-            <button className="btn post" onClick={() => handleSubmit("POST")}>Post</button>
-            <button className="btn put" onClick={() => handleSubmit("PUT")} disabled={!selectedProduct}>Put</button>
-            <button className="btn get" onClick={() => fetchProducts()}>Get</button>
-            <button className="btn delete" onClick={() => handleSubmit("DELETE")} disabled={!selectedProduct}>Delete</button>
-          </div>
+    <div className="tambos-screen">
+      <h1>ALL THE TAMBOS BRO</h1>
+      
+      <div className="form-container">
+        <div className="input-group">
+          <label>Enter the name of the tambo</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Name"
+          />
         </div>
 
-        <table className="data-table">
+        <div className="input-group">
+          <label>Enter the price of the tambo</label>
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            placeholder="Price"
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Enter the Unit available of the tambo</label>
+          <input
+            type="number"
+            name="stock"
+            value={formData.stock}
+            onChange={handleChange}
+            placeholder="Stock"
+          />
+        </div>
+
+        <div className="input-group full-width">
+          <label>Add a product description</label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Description"
+          />
+        </div>
+      </div>
+
+      <div className="crud-buttons">
+        <button onClick={() => handleSubmit('POST')}>Post</button>
+        <button onClick={() => handleSubmit('PUT')}>Put</button>
+        <button onClick={() => handleSubmit('GET')}>Get</button>
+        <button onClick={() => handleSubmit('DELETE')}>Delete</button>
+      </div>
+
+      <div className="products-table">
+        <table>
           <thead>
             <tr>
               <th>Name</th>
               <th>Description</th>
               <th>Price</th>
               <th>Stock</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <tr key={product._id} className={selectedProduct === product._id ? "selected-row" : ""}>
+            {products.map((product, index) => (
+              <tr key={index}>
                 <td>{product.name}</td>
                 <td>{product.description}</td>
-                <td>{product.price}</td>
-                <td>{product.stock}</td>
-                <td>
-                  <button className="select-btn" onClick={() => handleSelect(product)}>Select</button>
-                </td>
+                <td>${product.price}</td>
+                <td>{product.stock} units</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </main>
+      </div>
     </div>
   );
 };
 
-export default MainScreen;
+export default TambosForm;

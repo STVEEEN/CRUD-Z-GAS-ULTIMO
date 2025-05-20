@@ -1,23 +1,44 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import "./Sidebar.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import './Sidebar.css';
 
 const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="logo-container">
-        <img src="placeholder.png" alt="Logo" className="logo" />
+        <h2>TAMBOS</h2>
       </div>
       <nav>
         <ul>
           <li>
-            <NavLink to="/MainScreen" activeClassName="active">Productos</NavLink>
+            <NavLink 
+              to="/" 
+              className={({ isActive }) => 
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Productos
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/sales" activeClassName="active">Ventas</NavLink>
+            <NavLink 
+              to="/branches" 
+              className={({ isActive }) => 
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Branches
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/reports" activeClassName="active">Reportes</NavLink>
+            <NavLink 
+              to="/blog" 
+              className={({ isActive }) => 
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Blog
+            </NavLink>
           </li>
         </ul>
       </nav>
