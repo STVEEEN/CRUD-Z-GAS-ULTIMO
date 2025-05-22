@@ -18,12 +18,12 @@ import cors from "cors";
 // Creo una constante que es igual a la libreria que importé
 const app = express();
 
-app.use(
-    cors({
-        origin: "*",
-        Credential: true,
-    })
-);
+const corsOptions = {
+    origin: "*",  
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  };
+  app.use(cors(corsOptions));
 
 //Que acepte datos en json
 app.use(express.json());
