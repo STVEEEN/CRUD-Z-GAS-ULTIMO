@@ -24,22 +24,22 @@ const Button = ({ label, actionButton, colorClass, type="button" }) => {
       type={type}
       className={className}
       style={{
-        background: "linear-gradient(135deg, #232526 0%, #414345 100%)",
+        background: "linear-gradient(135deg, #6b21a8 0%, #6b21a8 100%)",
         color: "#00fff7",
         border: "none",
         borderRadius: "1rem",
-        boxShadow: "0 4px 16px 0 rgba(0,255,247,0.15)",
-        textShadow: "0 0 8px #00fff7",
+        boxShadow: "0 4px 16px 0 rgba(110, 23, 182, 0.15)",
+        textShadow: "0 0 8pxrgb(148, 31, 194)",
         letterSpacing: "1px",
         transition: "transform 0.2s, box-shadow 0.2s",
       }}
       onMouseOver={e => {
         e.currentTarget.style.transform = "scale(1.05)";
-        e.currentTarget.style.boxShadow = "0 8px 32px 0 rgba(0,255,247,0.25)";
+        e.currentTarget.style.boxShadow = "0 8px 32px 0 rgba(74, 10, 117, 0.25)";
       }}
       onMouseOut={e => {
         e.currentTarget.style.transform = "scale(1)";
-        e.currentTarget.style.boxShadow = "0 4px 16px 0 rgba(0,255,247,0.15)";
+        e.currentTarget.style.boxShadow = "0 4px 16px 0 rgba(142, 25, 165, 0.15)";
       }}
       onClick={actionButton}
     >

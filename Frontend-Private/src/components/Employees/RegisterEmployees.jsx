@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "../Button";
 
 const RegisterEmployees = ({
   id,
@@ -23,253 +22,97 @@ const RegisterEmployees = ({
   setHireDate,
   isssNumber,
   setIsssNumber,
-
   handleSubmit,
   handleUpdate,
 }) => {
   return (
-    <>
-      <form
-        className="mx-auto mb-5"
+    <form
+      className="mx-auto mb-5"
+      style={{
+        maxWidth: "600px",
+        background: "#ffffff",
+        borderRadius: "1.5rem",
+        boxShadow: "0 10px 30px rgba(176, 143, 210, 0.3)",
+        color: "#6b21a8",
+        padding: "2rem",
+      }}
+      onSubmit={id ? handleUpdate : handleSubmit}
+    >
+      <h1
+        className="fw-bold mb-4 text-center"
         style={{
-          maxWidth: "600px",
-          background: "linear-gradient(135deg, #232526 0%, #414345 100%)",
-          border: "none",
-          borderRadius: "1.5rem",
-          boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-          color: "#00fff7",
-          padding: "2rem",
+          color: "#6b21a8",
+          textShadow: "0 0 10px rgba(107, 33, 168, 0.4)",
+          letterSpacing: "1.5px",
         }}
-        onSubmit={id ? handleUpdate : handleSubmit}
       >
-        <h1
-          className="fw-bold mb-4 text-center"
-          style={{
-            color: "#00fff7",
-            textShadow: "0 0 10px #00fff7, 0 0 20px #00fff7",
-            letterSpacing: "2px",
-          }}
-        >
-          {id ? "Actualizar Empleado" : "Registrar Empleado"}
-        </h1>
-        <div className="row g-3">
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="name" style={{ color: "#00fff7" }}>
-              Nombre
+        {id ? "Actualizar Empleado" : "Registrar Empleado"}
+      </h1>
+
+      <div className="row g-3">
+        {[
+          { label: "Nombre", id: "name", value: name, setter: setName, type: "text" },
+          { label: "Apellido", id: "lastName", value: lastName, setter: setLastName, type: "text" },
+          { label: "Email", id: "email", value: email, setter: setEmail, type: "email" },
+          { label: "Contraseña", id: "password", value: password, setter: setPassword, type: "password", required: !id },
+          { label: "Teléfono", id: "telephone", value: telephone, setter: setTelephone, type: "text" },
+          { label: "DUI", id: "dui", value: dui, setter: setDui, type: "text" },
+          { label: "Dirección", id: "address", value: address, setter: setAddress, type: "text", full: true },
+          { label: "Fecha de nacimiento", id: "birthdate", value: birthdate, setter: setBirthdate, type: "date" },
+          { label: "Fecha de contratación", id: "hireDate", value: hireDate, setter: setHireDate, type: "date" },
+          { label: "Número ISSS", id: "isssNumber", value: isssNumber, setter: setIsssNumber, type: "text", full: true },
+        ].map(({ label, id, value, setter, type, full, required = true }) => (
+          <div key={id} className={full ? "col-md-12" : "col-md-6"}>
+            <label
+              className="form-label"
+              htmlFor={id}
+              style={{ color: "#6b21a8", fontWeight: "bold" }}
+            >
+              {label}
             </label>
             <input
               className="form-control"
               style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
+                background: "#f5f0fa",
+                color: "#4b0082",
+                border: "1px solid #b38add",
                 borderRadius: "0.75rem",
+                boxShadow: "0 4px 12px rgba(179, 138, 221, 0.2)",
               }}
-              id="name"
-              type="text"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              required
+              id={id}
+              type={type}
+              value={value}
+              onChange={(e) => setter(e.target.value)}
+              required={required}
             />
           </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="lastName" style={{ color: "#00fff7" }}>
-              Apellido
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="lastName"
-              type="text"
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="email" style={{ color: "#00fff7" }}>
-              Email
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="email"
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="password" style={{ color: "#00fff7" }}>
-              Contraseña
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="password"
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required={!id}
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="telephone" style={{ color: "#00fff7" }}>
-              Teléfono
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="telephone"
-              type="text"
-              value={telephone}
-              onChange={e => setTelephone(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="dui" style={{ color: "#00fff7" }}>
-              DUI
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="dui"
-              type="text"
-              value={dui}
-              onChange={e => setDui(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-12">
-            <label className="form-label" htmlFor="address" style={{ color: "#00fff7" }}>
-              Dirección
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="address"
-              type="text"
-              value={address}
-              onChange={e => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="birthdate" style={{ color: "#00fff7" }}>
-              Fecha de nacimiento
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="birthdate"
-              type="date"
-              value={birthdate}
-              onChange={e => setBirthdate(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="form-label" htmlFor="hireDate" style={{ color: "#00fff7" }}>
-              Fecha de contratación
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="hireDate"
-              type="date"
-              value={hireDate}
-              onChange={e => setHireDate(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-12">
-            <label className="form-label" htmlFor="isssNumber" style={{ color: "#00fff7" }}>
-              Número ISSS
-            </label>
-            <input
-              className="form-control"
-              style={{
-                background: "rgba(35,37,38,0.8)",
-                color: "#00fff7",
-                border: "1px solid #00fff7",
-                borderRadius: "0.75rem",
-              }}
-              id="isssNumber"
-              type="text"
-              value={isssNumber}
-              onChange={e => setIsssNumber(e.target.value)}
-              required
-            />
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="btn w-100 fw-bold mt-4"
-          style={{
-            background: "linear-gradient(135deg, #232526 0%, #00fff7 100%)",
-            color: "#232526",
-            border: "none",
-            borderRadius: "1rem",
-            boxShadow: "0 4px 16px 0 rgba(0,255,247,0.15)",
-            textShadow: "0 0 8px #00fff7",
-            letterSpacing: "1px",
-            transition: "transform 0.2s, box-shadow 0.2s",
-          }}
-          onMouseOver={e => {
-            e.currentTarget.style.transform = "scale(1.05)";
-            e.currentTarget.style.boxShadow = "0 8px 32px 0 rgba(0,255,247,0.25)";
-          }}
-          onMouseOut={e => {
-            e.currentTarget.style.transform = "scale(1)";
-            e.currentTarget.style.boxShadow = "0 4px 16px 0 rgba(0,255,247,0.15)";
-          }}
-        >
-          {id ? "Actualizar" : "Registrar"}
-        </button>
-      </form>
-    </>
+        ))}
+      </div>
+
+      <button
+        type="submit"
+        className="btn w-100 fw-bold mt-4"
+        style={{
+          background: "linear-gradient(135deg, #6b21a8, #9d4edd)",
+          color: "#fff",
+          border: "none",
+          borderRadius: "1rem",
+          boxShadow: "0 4px 16px rgba(157, 78, 221, 0.4)",
+          letterSpacing: "1px",
+          transition: "transform 0.2s, box-shadow 0.2s",
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.transform = "scale(1.05)";
+          e.currentTarget.style.boxShadow = "0 8px 32px rgba(157, 78, 221, 0.6)";
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.transform = "scale(1)";
+          e.currentTarget.style.boxShadow = "0 4px 16px rgba(157, 78, 221, 0.4)";
+        }}
+      >
+        {id ? "Actualizar" : "Registrar"}
+      </button>
+    </form>
   );
 };
 

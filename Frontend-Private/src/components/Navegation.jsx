@@ -22,7 +22,7 @@ function Navegation() {
   const location = useLocation();
   const [showNavbar, setShowNavbar] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
-  const authRoutes = ['/login', '/register', '/recuperacion', '/recuperacioncodigo', '/cambiarpassword'];
+  const authRoutes = ['/login'];
 
   const { authCokie } = useAuth();
   const navigate = useNavigate();

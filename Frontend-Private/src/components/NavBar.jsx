@@ -48,7 +48,7 @@ const NavBar = () => {
               transition: "color 0.2s",
             })}
           >
-            ByteShop
+            Z-GAS Administrativo
           </NavLink>
         </div>
         <ul className="d-flex gap-4 mb-0" style={{ listStyle: "none" }}>

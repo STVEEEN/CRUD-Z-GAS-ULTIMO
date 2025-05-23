@@ -10,10 +10,10 @@ const CardProduct = ({ product, deleteProduct, updateProduct }) => {
     <div
       className="card shadow-lg mb-4"
       style={{
-        background: "linear-gradient(135deg, #232526 0%, #414345 100%)",
+        background: "linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%)",
         border: "none",
         borderRadius: "1.5rem",
-        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+        boxShadow: "0 8px 32px 0 rgba(77, 29, 131, 0.37)",
         color: "#00fff7",
         padding: "2rem",
         maxWidth: "400px",
@@ -24,7 +24,7 @@ const CardProduct = ({ product, deleteProduct, updateProduct }) => {
         className="fw-bold mb-3 text-center"
         style={{
           color: "#00fff7",
-          textShadow: "0 0 10px #00fff7, 0 0 20px #00fff7",
+          textShadow: "0 0 10px #6b21a8, 0 0 20px #6b21a8",
           letterSpacing: "2px",
         }}
       >
