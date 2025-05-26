@@ -1,3 +1,4 @@
+
 export const fetchData = async (endPoint, form = null, action = null) => {
 
   // Si la acción es 'PUT' o 'DELETE' y el objeto form tiene un 'id',
@@ -19,9 +20,11 @@ export const fetchData = async (endPoint, form = null, action = null) => {
   };
 
   try {
+
     // Construcción de la URL completa combinando SERVER_URL con el endpoint especificado.
     const PATH = new URL(SERVER_URL + endPoint);
-    
+    Z
+
     // Se realiza la solicitud HTTP utilizando fetch y las opciones configuradas.
     const RESPONSE = await fetch(PATH.href, OPTIONS);
 

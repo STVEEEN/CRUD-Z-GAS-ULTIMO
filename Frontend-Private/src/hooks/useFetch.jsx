@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const useFetch = () => {
 
   // URL base del servidor donde se realizarán las solicitudes.
-  const SERVER_URL = 'http://localhost:4000/api/';
+  const SERVER_URL = 'http://localhost:4000/api';
 
   // Función asíncrona para realizar la autenticación de usuario.
   const useLogin = async (email, password) => {

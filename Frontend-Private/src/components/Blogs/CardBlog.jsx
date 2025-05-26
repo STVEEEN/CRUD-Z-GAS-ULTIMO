@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Button";
 
-// Componente `CardBlog` para mostrar la información de un blog individual
 const CardBlog = ({ blog, deleteBlog, updateBlog }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
   
-  // Si no hay datos de blog, muestra un mensaje de carga
+  // Manejar la eliminación del blog con validaciones
+  const handleDelete = async () => {
+    if (!blog?._id) {
+      console.error("ID de blog no válido:", blog?._id);
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      await deleteBlog(blog._id);
+    } catch (error) {
+      console.error("Error en CardBlog al eliminar:", error);
+      // El toast de error ya se maneja en deleteBlog
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   if (!blog) {
     return <div className="text-center" style={{ color: "#9575cd" }}>Loading...</div>;
   }
@@ -13,79 +30,73 @@ const CardBlog = ({ blog, deleteBlog, updateBlog }) => {
     <div
       className="card shadow-lg mb-4"
       style={{
-        background: "white", // Fondo blanco
-        border: "none", // Sin bordes
-        borderRadius: "1.5rem", // Bordes redondeados
-        boxShadow: "0 8px 32px 0 rgba(149, 117, 205, 0.3)", // Sombra elegante
-        color: "#6a1b9a", // Color del texto
-        padding: "2rem", // Espaciado interno
-        maxWidth: "400px", // Ancho máximo de la tarjeta
-        margin: "auto", // Centrar la tarjeta
+        background: "white",
+        border: "none",
+        borderRadius: "1.5rem",
+        boxShadow: "0 8px 32px 0 rgba(149, 117, 205, 0.3)",
+        color: "#6a1b9a",
+        padding: "2rem",
+        maxWidth: "400px",
+        margin: "auto",
       }}
     >
-      {/* Título del blog */}
-      <h2
-        className="fw-bold mb-3 text-center"
-        style={{
-          color: "#6a1b9a", // Color púrpura oscuro
-          letterSpacing: "2px", // Espaciado entre letras
-        }}
-      >
+      <h2 className="fw-bold mb-3 text-center" style={{ color: "#6a1b9a", letterSpacing: "2px" }}>
         {blog.title}
       </h2>
 
-      {/* Mostrar imagen si existe */}
       {blog.image && (
         <div className="text-center mb-3">
           <img
-            src={blog.image} // Fuente de la imagen
-            alt={blog.title} // Texto alternativo
+            src={blog.image}
+            alt={blog.title}
             style={{
-              maxWidth: "100%", // Ajustar imagen al contenedor
-              maxHeight: "200px", // Altura máxima
-              borderRadius: "1rem", // Bordes redondeados
-              boxShadow: "0 2px 8px 0 rgba(156, 39, 176, 0.15)", // Sombra suave
-              objectFit: "cover", // Ajustar imagen sin distorsión
+              maxWidth: "100%",
+              maxHeight: "200px",
+              borderRadius: "1rem",
+              boxShadow: "0 2px 8px 0 rgba(156, 39, 176, 0.15)",
+              objectFit: "cover",
             }}
           />
         </div>
       )}
 
-      {/* Contenido del blog */}
       <p style={{ color: "#6a1b9a" }}>
         <span className="fw-semibold">Contenido:</span> {blog.content}
       </p>
 
-      {/* Identificador del blog */}
       <p style={{ color: "#6a1b9a" }}>
         <span className="fw-semibold">ID:</span> {blog._id}
       </p>
 
-      {/* Botones de acción */}
       <div className="d-flex justify-content-center gap-3 mt-3">
-        {/* Botón para eliminar el blog */}
         <Button
-          label={"Eliminar"}
-          actionButton={() => deleteBlog(blog._id)}
+          label={isDeleting ? "Eliminando..." : "Eliminar"}
+          actionButton={handleDelete}
+          disabled={isDeleting}
           style={{
-            background: "linear-gradient(135deg, #d32f2f 0%, #f44336 100%)", // Fondo rojo degradado
-            color: "white", // Texto blanco
-            border: "none", // Sin bordes
-            borderRadius: "0.75rem", // Bordes redondeados
-            padding: "0.5rem 1.5rem", // Espaciado interno
+            background: isDeleting 
+              ? "linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%)" 
+              : "linear-gradient(135deg, #d32f2f 0%, #f44336 100%)",
+            color: "white",
+            border: "none",
+            borderRadius: "0.75rem",
+            padding: "0.5rem 1.5rem",
+            opacity: isDeleting ? 0.7 : 1,
+            cursor: isDeleting ? "not-allowed" : "pointer",
           }}
         />
 
-        {/* Botón para editar el blog */}
         <Button
           label={"Editar"}
           actionButton={() => updateBlog(blog)}
+          disabled={isDeleting}
           style={{
-            background: "linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%)", // Fondo púrpura degradado
-            color: "white", // Texto blanco
-            border: "none", // Sin bordes
-            borderRadius: "0.75rem", // Bordes redondeados
-            padding: "0.5rem 1.5rem", // Espaciado interno
+            background: "linear-gradient(135deg, #7b1fa2 0%, #9c27b0 100%)",
+            color: "white",
+            border: "none",
+            borderRadius: "0.75rem",
+            padding: "0.5rem 1.5rem",
+            opacity: isDeleting ? 0.5 : 1,
           }}
         />
       </div>
@@ -93,5 +104,4 @@ const CardBlog = ({ blog, deleteBlog, updateBlog }) => {
   );
 };
 
-// Exportar `CardBlog` para su uso en otros componentes
 export default CardBlog;

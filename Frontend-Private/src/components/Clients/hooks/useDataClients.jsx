@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const ApiRegister = "http://localhost:4000/api/registerClients";
-const ApiClients = "http://localhost:4000/api/clients";
+const ApiClients = "http://localhost:4000/api/customers";
 
 const useDataClients = () => {
   const [activeTab, setActiveTab] = useState("list");

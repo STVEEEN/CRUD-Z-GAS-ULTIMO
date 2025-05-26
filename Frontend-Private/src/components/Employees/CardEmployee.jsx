@@ -10,11 +10,11 @@ const CardEmployee = ({ employee, deleteEmployee, updateEmployee }) => {
     <div
       className="card shadow-lg mb-4"
       style={{
-        background: "linear-gradient(135deg, #232526 0%, #414345 100%)",
+        background: "linear-gradient(135deg,rgb(255, 255rgb(255, 255, 255)%,rgb(255, 255, 255) 100%)",
         border: "none",
         borderRadius: "1.5rem",
-        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-        color: "#00fff7",
+        boxShadow: "0 8px 32px 0 rgba(255, 255, 255, 0.37)",
+        color: "#6b21a8",
         padding: "2rem",
         maxWidth: "400px",
         margin: "auto",
@@ -23,14 +23,13 @@ const CardEmployee = ({ employee, deleteEmployee, updateEmployee }) => {
       <h2
         className="fw-bold mb-3 text-center"
         style={{
-          color: "#00fff7",
-          textShadow: "0 0 10px #00fff7, 0 0 20px #00fff7",
+          color: "#6b21a8",
           letterSpacing: "2px",
         }}
       >
         {employee.name} {employee.lastName}
       </h2>
-      <p>
+      <p >
         <span className="fw-semibold">Email:</span> {employee.email}
       </p>
       <p>
@@ -60,12 +59,13 @@ const CardEmployee = ({ employee, deleteEmployee, updateEmployee }) => {
         <Button 
           label={"Eliminar"}
           actionButton={() => deleteEmployee(employee._id)}
-          colorClass={"danger"}
+          
+        
         />
         <Button 
           label={"Editar Información"}
           actionButton={() => updateEmployee(employee)}
-          colorClass={"warning"}
+
         />
       </div>
     </div>

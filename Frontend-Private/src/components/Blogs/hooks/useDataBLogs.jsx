@@ -91,24 +91,46 @@ const useDataBlogs = () => {
 
   // Eliminar un blog por su ID
   const deleteBlog = async (id) => {
-    try {
-      setLoading(true);
-      const response = await fetch(`${ApiBlogs}/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete blog");
-      }
-
-      toast.success("Blog eliminado");
-      fetchData(); // Se actualiza la lista de blogs
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-    } finally {
-      setLoading(false);
+  try {
+    if (!id || typeof id !== 'string') {
+      throw new Error('ID inválido para eliminar el blog');
     }
-  };
+
+    console.log('[DEBUG] Intentando eliminar blog con ID:', id); // Debug
+    
+    setLoading(true);
+    const response = await fetch(`${ApiBlogs}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        // Si tu API requiere autenticación:
+        // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    console.log('[DEBUG] Respuesta del servidor:', response); // Debug
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`);
+    }
+
+    toast.success('Blog eliminado exitosamente');
+    fetchData();
+    return true;
+  } catch (error) {
+    console.error('Error completo al eliminar blog:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
+    
+    toast.error(`Error al eliminar: ${error.message}`);
+    throw error; // Propaga el error para manejo adicional
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Cargar datos de un blog para edición
   const updateBlog = (dataBlog) => {

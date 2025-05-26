@@ -25,7 +25,7 @@ const Button = ({ label, actionButton, colorClass, type="button" }) => {
       className={className}
       style={{
         background: "linear-gradient(135deg, #6b21a8 0%, #6b21a8 100%)",
-        color: "#00fff7",
+        color: "#FFFFFF",
         border: "none",
         borderRadius: "1rem",
         boxShadow: "0 4px 16px 0 rgba(110, 23, 182, 0.15)",

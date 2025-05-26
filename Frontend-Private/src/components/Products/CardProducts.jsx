@@ -10,7 +10,7 @@ const CardProduct = ({ product, deleteProduct, updateProduct }) => {
     <div
       className="card shadow-lg mb-4"
       style={{
-        background: "linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%)",
+        background: "linear-gradient(135deg,rgb(255, 255, 255) 0%,rgb(255, 255, 255) 100%)",
         border: "none",
         borderRadius: "1.5rem",
         boxShadow: "0 8px 32px 0 rgba(77, 29, 131, 0.37)",
@@ -23,35 +23,35 @@ const CardProduct = ({ product, deleteProduct, updateProduct }) => {
       <h2
         className="fw-bold mb-3 text-center"
         style={{
-          color: "#00fff7",
-          textShadow: "0 0 10px #6b21a8, 0 0 20px #6b21a8",
+          color: "#6b21a8",
+        
           letterSpacing: "2px",
         }}
       >
         {product.name}
       </h2>
-      <p>
+      <p style={{ color: "#6a1b9a" }}>
         <span className="fw-semibold">Descripción:</span> {product.description || "N/A"}
       </p>
-      <p>
+      <p style={{ color: "#6a1b9a" }}>
         <span className="fw-semibold">Precio:</span> ${product.price.toFixed(2)}
       </p>
-      <p>
+      <p style={{ color: "#6a1b9a" }}> 
         <span className="fw-semibold">Stock:</span> {product.stock}
       </p>
-      <p>
+      <p style={{ color: "#6a1b9a" }}>
         <span className="fw-semibold">ID:</span> {product._id}
       </p>
       <div className="d-flex justify-content-center mt-3">
         <Button 
           label={"Eliminar"}
           actionButton={() => deleteProduct(product._id)}
-          colorClass={"danger"}
+ 
         />
         <Button 
           label={"Editar Información"}
           actionButton={() => updateProduct(product)}
-          colorClass={"warning"}
+  
         />
       </div>
     </div>
